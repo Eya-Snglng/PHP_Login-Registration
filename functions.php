@@ -17,18 +17,14 @@ function login($conn, $username, $password) {
 	$stmt->execute([$username]);
 
 	if($stmt->rowCount() == 1) {
-		// returns associative array
 		$row = $stmt->fetch();
 
-		// store user info as a session variable
 		$_SESSION['userInfo'] = $row;
 
-		// get values from the session variable
 		$uid = $row['user_id'];
 		$uname = $row['username'];
 		$passHash = $row['password'];
 
-		// validate password 
 		if(password_verify($password, $passHash)) {
 			$_SESSION['user_id'] = $uid;
 			$_SESSION['username'] = $uname;
